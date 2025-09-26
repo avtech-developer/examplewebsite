@@ -1,0 +1,137 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyWebsite());
+}
+
+class MyWebsite extends StatelessWidget {
+  const MyWebsite({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  // Animation controller for arrow bounce
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+
+    // Double-bounce: up 20px, down, up 10px, back down
+    _animation = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 0, end: -20), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: -20, end: 0), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: 0, end: -10), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: -10, end: 0), weight: 25),
+    ]).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _controller.repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Background gradient
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFFFFA500), Color(0xFF0F07EB)],
+              ),
+            ),
+          ),
+          // Centered main text
+          Center(
+            child: Text(
+              'Welcome to the Future',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 80,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: 'Product Sans Black',
+              ),
+            ),
+          ),
+          // Bottom navigation text examples
+          Positioned(
+            bottom: 150,
+            left: 50,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('Our Products', style: TextStyle(fontSize: 20, fontFamily: 'Product Sans Black')),
+                SizedBox(height: 10),
+                Text('About Us', style: TextStyle(fontSize: 20, fontFamily: 'Product Sans Black')),
+                SizedBox(height: 10),
+                Text('About Our Founder', style: TextStyle(fontSize: 20, fontFamily: 'Product Sans Black')),
+                SizedBox(height: 10),
+                Text('Quality Promise', style: TextStyle(fontSize: 20, fontFamily: 'Product Sans Black')),
+              ],
+            ),
+          ),
+          // Double-bounce arrow
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: AnimatedBuilder(
+                animation: _animation,
+                builder: (context, child) {
+                  return Transform.translate(
+                    offset: Offset(0, _animation.value),
+                    child: child,
+                  );
+                },
+                child: Container(
+                  width: 60,
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF2E2C2C), Color(0xFF4F4A4A)],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                  child: const Icon(Icons.keyboard_arrow_down, size: 40, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
