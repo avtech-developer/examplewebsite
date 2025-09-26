@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to the Future</title>
+<style>
+  /* Full-screen gradient background */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Product Sans', sans-serif;
+    background: linear-gradient(to bottom, #FFA500, #0F07EB);
+    overflow: hidden;
+  }
+
+  /* Centered main text */
+  .main-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 80px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* Bottom navigation text */
+  .nav-text {
+    position: absolute;
+    bottom: 150px;
+    left: 50px;
+    color: black;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+
+  /* Arrow container */
+  .arrow-container {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #2E2C2C, #4F4A4A);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  /* Arrow icon */
+  .arrow {
+    width: 0; 
+    height: 0; 
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 20px solid white;
+    animation: double-bounce 0.6s infinite;
+  }
+
+  /* Double-bounce animation */
+  @keyframes double-bounce {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-20px); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="main-text">Welcome to the Future</div>
+
+  <div class="nav-text">
+    Our Products<br>
+    About Us<br>
+    About Our Founder<br>
+    Quality Promise
+  </div>
+
+  <div class="arrow-container">
+    <div class="arrow"></div>
+  </div>
+
+</body>
+</html>
