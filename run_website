@@ -1,6 +1,1 @@
-git init
-git remote add origin https://github.com/USERNAME/my_website.git
-git checkout -b gh-pages
-git add .
-git commit -m "Deploy Flutter web"
-git push origin gh-pages --force
+
